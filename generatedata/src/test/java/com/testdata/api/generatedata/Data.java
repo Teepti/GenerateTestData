@@ -40,14 +40,17 @@ public class Data {
 		//System.setProperty("webdriver.chrome.driver","C://Users//Revaan//Downloads//chromedriver_win32//chromedriver.exe");
 		System.setProperty("webdriver.chrome.driver",args[0]);
 		ChromeDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
 		driver.get("http://localhost/generatedata-3.4.1/generatedata-3.4.1/");
 		driver.findElementByXPath("//li[@id='gdLoadLink']").click();
 		driver.switchTo().activeElement();
-		driver.findElementByXPath("//*[@id='gdMainDialogTab2Content']//table[@id='gdAccountDataSets']//tr[@data-id='3']//td[7]").click();
+		driver.findElementByXPath("//*[@id='gdMainDialogTab2Content']//table[@id='gdAccountDataSets']//tr[@data-id="+args[2]+"]//td[7]").click();
+		Thread.sleep(3000);
 		WebDriverWait wait = new WebDriverWait(driver,10);
 		WebElement ele =driver.findElementByXPath("//div[@id='gdGenerateSection']//button[@id='gdGenerateButton']");
 		wait.until(ExpectedConditions.visibilityOf(ele));
 		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].setAttribute('style', 'background: yellow; border: 2px solid red;');", ele);
 		js.executeScript("window.scrollBy(0,1000)");
 		ele.click();
 		Thread.sleep(3000);
